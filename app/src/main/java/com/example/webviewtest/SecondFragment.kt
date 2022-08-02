@@ -47,6 +47,7 @@ private var _binding: FragmentSecondBinding? = null
         webSettings.loadWithOverviewMode = true
         webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
 
+        binding.webview.loadUrl("https://photos.pixlee.co/standalone?widget_id=9071187")
     }
 override fun onDestroyView() {
         super.onDestroyView()
