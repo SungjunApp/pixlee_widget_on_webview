@@ -1,12 +1,16 @@
 package com.example.webviewtest
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import android.webkit.ConsoleMessage
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import androidx.fragment.app.Fragment
 import com.example.webviewtest.databinding.FragmentSecondBinding
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -30,10 +34,19 @@ private var _binding: FragmentSecondBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        binding.webview.webChromeClient = object : WebChromeClient() {
+            override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                Log.e("WebView - Logger", consoleMessage.messageLevel().toString() + " : " + consoleMessage.lineNumber() + " : " + consoleMessage.message())
+                return true
+            }
         }
+
+        val webSettings: WebSettings = binding.webview.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.useWideViewPort = true
+        webSettings.loadWithOverviewMode = true
+        webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
+
     }
 override fun onDestroyView() {
         super.onDestroyView()
