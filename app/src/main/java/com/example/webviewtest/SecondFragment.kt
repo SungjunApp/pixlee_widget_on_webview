@@ -1,5 +1,6 @@
 package com.example.webviewtest
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
+import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import com.example.webviewtest.databinding.FragmentSecondBinding
 
@@ -41,13 +43,25 @@ private var _binding: FragmentSecondBinding? = null
             }
         }
 
+        WebView.setWebContentsDebuggingEnabled(true)
+
+
         val webSettings: WebSettings = binding.webview.settings
+        webSettings.allowContentAccess = true
+        webSettings.allowFileAccess = true
+        webSettings.databaseEnabled = true
+        webSettings.displayZoomControls = true
+        webSettings.domStorageEnabled = true
+        webSettings.loadsImagesAutomatically = true
+        webSettings.mediaPlaybackRequiresUserGesture = true
+
         webSettings.javaScriptEnabled = true
-        webSettings.useWideViewPort = true
-        webSettings.loadWithOverviewMode = true
+//        webSettings.useWideViewPort = true
+//        webSettings.loadWithOverviewMode = true
+
         webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
 
-        binding.webview.loadUrl("https://photos.pixlee.co/standalone?widget_id=9071187")
+        binding.webview.loadUrl(arguments?.getString("url") ?: "")
     }
 override fun onDestroyView() {
         super.onDestroyView()

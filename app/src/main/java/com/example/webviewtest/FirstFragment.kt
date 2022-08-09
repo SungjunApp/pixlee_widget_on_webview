@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.webviewtest.databinding.FragmentFirstBinding
 
@@ -32,7 +33,11 @@ private var _binding: FragmentFirstBinding? = null
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundleOf("url" to "https://sungjunapp.github.io/pixlee/jun.html"))
+        }
+
+        binding.buttonSecond.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundleOf("url" to "https://sungjunapp.github.io/pixlee/super.html"))
         }
     }
 
